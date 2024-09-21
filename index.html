@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/fromann/CDN@main/img/logo.ico">
+  <title>For My Dear Shanshan &#10084;&#65039;</title>
+  <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/mouse_slide.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/zyoushuo/Blog/hexo/js/clicklove.js"></script>
+
+  <!-- Add Google Fonts for a beautiful font style -->
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Pacifico&display=swap" rel="stylesheet">
+  
+  <style type="text/css">
+    html, body {
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      background: #000;
+      overflow: hidden; /* Prevent scrollbars */
+    }
+    canvas {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    .namebox {
+      color: #fff;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      width: 90%;
+    }
+    .namebox h1 {
+      margin: 0;
+      font-size: 3em;
+      transition: opacity 1s ease-in-out;
+      opacity: 0;
+      font-family: 'Dancing Script', cursive; /* Set the romantic font */
+      display: none; /* Initially hidden */
+    }
+    #dynamic-text{
+      text-transform: capitalize;
+    }
+
+    /* Button styling */
+    .reveal-btn {
+      position: absolute;
+      top: 80%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #ff69b4;
+      color: white;
+      font-size: 1.5em;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      opacity: 0;
+      display: none; /* Hidden initially */
+    }
+
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .namebox h1 {
+        font-size: 1.7em; /* Smaller font for mobile */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .namebox h1 {
+        font-size: 1.3em; /* Even smaller for very small screens */
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .namebox h1 {
+        font-size: 3.3em; /* Larger font for bigger screens */
+      }
+    }
+  </style>
+</head>
+
+<body>
+<canvas id="pinkboard"></canvas>
+
+<!-- Dynamic text container -->
+<div class="namebox">
+  <h1 id="dynamic-text"></h1>
+</div>
+
+<!-- Reveal Button (Initially hidden) -->
+<button id="reveal-btn" class="reveal-btn">Click Me!</button>
+
+<!-- Background music -->
+<audio id="bg-music" loop>
+  <source src="BGMUSIC.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+<script>
+  // JavaScript to handle the button reveal and start background music & dynamic text
+  const words = ["hi cam", "Maayong Gabii", "kumusta?..", "i hope okay raka run","ahmm..","I don't know..","why I made this","HEHEHE", "but since nabuhat namn i'll ..","tell you something nalang",
+                  "things that i can't say..","in front of you","first of all..","gwapa kayka","HAHAHAHA","btaw walay boret","everytime makit-an tika","i really want to say","ka gwapa nimo bai oyyy",
+                  "but you already know that","so i just admire your beauty..","from afar","secondly..","second pata ha","HAHAHA","ganahan kaykos imo..","humorrr","lingaw kayka permi","maka...","❤️❤️","imo humor",
+                  "'tru da fire'","HAHAHAHA","btaw you always make..","the people around you","laugh","and thats..","one of the things","i really like..","about you","and..", "lastly","yiee last na oh","maka tulog naka after ani",
+                  "HAHAHAHA","btaw..","i guess.."," you already know this..","it's the part of you that..","I really like the most","your smile","i really like your smile","ambot ngano","HAHAHA","it's just that..","everytime i see you.."," smile..",
+                  "it cheers me up","its like there's..","something magical about it..","so pure and effortless","and everytime.."," you smile at me..","it completes my day","so..."," thank you","and please..","keep smiling","ayiiee","ka gwapa sehal oyy",
+                  "basin..","gi kilig naka diha ha..","HAHAHAHA","btaw.."," I'm so thankful that..","you're my friend, elyza","i just wish that..","when you find someone","dapat..","mas gwapo sya nako","mas caring nako","mas godfearing nako","mas respectful","mas maayo mo luto nako","dapat mas gwapo nako!!","HAHAHHAAHA","joke","btaw.."
+                  ,"i wish that..","when you actually find","the one","(ms.NBSB)","i hope he gives you..","all the love..","that you deserve..","because you deserve it","but for now","stay slayin sehal","HAHAHAHA","mao rato Goodnight","thank youu","❤️"
+  ];
+  let index = 0;
+  const textElement = document.getElementById('dynamic-text');
+  const revealBtn = document.getElementById('reveal-btn');
+  const bgMusic = document.getElementById('bg-music');
+
+  // Function to handle dynamic text transition
+  function updateText() {
+    textElement.style.opacity = 0; // Fade out
+    setTimeout(() => {
+      textElement.textContent = words[index]; // Change the text
+      textElement.style.opacity = 1; // Fade in
+      index = (index + 1) % words.length; // Loop back to the first word after the last one
+    }, 1000); // Delay for fade out (1 second)
+  }
+
+  // Show button after 5 seconds
+  setTimeout(() => {
+    revealBtn.style.display = 'block';
+    revealBtn.style.opacity = 1;
+  }, 5000);
+
+  // Event listener for the button
+  revealBtn.addEventListener('click', () => {
+    // Show the dynamic text
+    textElement.style.display = 'block';
+
+    // Start the dynamic text transition every 4 seconds
+    setInterval(updateText, 4000);
+
+    // Play background music
+    bgMusic.play();
+
+    // Hide the button after it's clicked
+    revealBtn.style.display = 'none';
+  });
+
+  var settings = {
+    particles: {
+      length: 500,
+      duration: 2,
+      velocity: 100,
+      effect: -0.75,
+      size: 30,
+    },
+  };
+
+  (function() {
+    var b = 0;
+    var c = ["ms", "moz", "webkit", "o"];
+    for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) {
+      window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"];
+      window.cancelAnimationFrame = window[c[a] + "CancelAnimationFrame"] || window[c[a] + "CancelRequestAnimationFrame"];
+    }
+    if (!window.requestAnimationFrame) {
+      window.requestAnimationFrame = function(h, e) {
+        var d = new Date().getTime();
+        var f = Math.max(0, 16 - (d - b));
+        var g = window.setTimeout(function() { h(d + f); }, f);
+        b = d + f;
+        return g;
+      };
+    }
+    if (!window.cancelAnimationFrame) {
+      window.cancelAnimationFrame = function(d) { clearTimeout(d); };
+    }
+  })();
+
+  var Point = (function() {
+    function Point(x, y) {
+      this.x = (typeof x !== 'undefined') ? x : 0;
+      this.y = (typeof y !== 'undefined') ? y : 0;
+    }
+    Point.prototype.clone = function() {
+      return new Point(this.x, this.y);
+    };
+    Point.prototype.length = function(length) {
+      if (typeof length == 'undefined')
+        return Math.sqrt(this.x * this.x + this.y * this.y);
+      this.normalize();
+      this.x *= length;
+      this.y *= length;
+      return this;
+    };
+
+    Point.prototype.normalize = function() {
+      var length = this.length();
+      this.x /= length;
+      this.y /= length;
+      return this;
+    };
+    return Point;
+  })();
+
+  var Particle = (function() {
+    function Particle() {
+      this.position = new Point();
+      this.velocity = new Point();
+      this.acceleration = new Point();
+      this.age = 0;
+    }
+    Particle.prototype.initialize = function(x, y, dx, dy) {
+      this.position.x = x;
+      this.position.y = y;
+      this.velocity.x = dx;
+      this.velocity.y = dy;
+      this.acceleration.x = dx * settings.particles.effect;
+      this.acceleration.y = dy * settings.particles.effect;
+      this.age = 0;
+    };
+    Particle.prototype.update = function(deltaTime) {
+      this.position.x += this.velocity.x * deltaTime;
+      this.position.y += this.velocity.y * deltaTime;
+      this.velocity.x += this.acceleration.x * deltaTime;
+      this.velocity.y += this.acceleration.y * deltaTime;
+      this.age += deltaTime;
+    };
+
+    Particle.prototype.draw = function(context, image) {
+      function ease(t) {
+        return (--t) * t * t + 1;
+      }
+      var size = image.width * ease(this.age / settings.particles.duration);
+      context.globalAlpha = 1 - this.age / settings.particles.duration;
+      context.drawImage(image, this.position.x - size / 2, this.position.y - size / 2, size, size);
+    };
+    return Particle;
+  })();
+
+  var ParticlePool = (function() {
+    var particles, firstActive = 0, firstFree = 0, duration = settings.particles.duration;
+    function ParticlePool(length) {
+      particles = new Array(length);
+      for (var i = 0; i < particles.length; i++)
+        particles[i] = new Particle();
+    }
+    ParticlePool.prototype.add = function(x, y, dx, dy) {
+      particles[firstFree].initialize(x, y, dx, dy);
+      firstFree++;
+      if (firstFree == particles.length) firstFree = 0;
+      if (firstActive == firstFree) firstActive++;
+      if (firstActive == particles.length) firstActive = 0;
+    };
+    ParticlePool.prototype.update = function(deltaTime) {
+      var i;
+      if (firstActive < firstFree) {
+        for (i = firstActive; i < firstFree; i++) particles[i].update(deltaTime);
+      }
+      if (firstFree < firstActive) {
+        for (i = firstActive; i < particles.length; i++) particles[i].update(deltaTime);
+        for (i = 0; i < firstFree; i++) particles[i].update(deltaTime);
+      }
+      while (particles[firstActive].age >= duration && firstActive != firstFree) {
+        firstActive++;
+        if (firstActive == particles.length) firstActive = 0;
+      }
+    };
+    ParticlePool.prototype.draw = function(context, image) {
+      if (firstActive < firstFree) {
+        for (i = firstActive; i < firstFree; i++) particles[i].draw(context, image);
+      }
+      if (firstFree < firstActive) {
+        for (i = firstActive; i < particles.length; i++) particles[i].draw(context, image);
+        for (i = 0; i < firstFree; i++) particles[i].draw(context, image);
+      }
+    };
+    return ParticlePool;
+  })();
+
+  (function(canvas) {
+    var context = canvas.getContext('2d'),
+        particles = new ParticlePool(settings.particles.length),
+        particleRate = settings.particles.length / settings.particles.duration, // particles/sec
+        time;
+
+    function pointOnHeart(t) {
+      return new Point(
+        160 * Math.sin(t) ** 3,
+        130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25
+      );
+    }
+
+    var image = (function() {
+      var canvas = document.createElement('canvas'),
+          context = canvas.getContext('2d');
+      canvas.width = settings.particles.size;
+      canvas.height = settings.particles.size;
+
+      function to(t) {
+        var point = pointOnHeart(t);
+        point.x = settings.particles.size / 2 + point.x * settings.particles.size / 350;
+        point.y = settings.particles.size / 2 - point.y * settings.particles.size / 350;
+        return point;
+      }
+      context.beginPath();
+      var t = -Math.PI;
+      var point = to(t);
+      context.moveTo(point.x, point.y);
+      while (t < Math.PI) {
+        t += 0.01;
+        point = to(t);
+        context.lineTo(point.x, point.y);
+      }
+      context.closePath();
+      context.fillStyle = '#ff30c5';
+      context.fill();
+
+      var image = new Image();
+      image.src = canvas.toDataURL();
+      return image;
+    })();
+
+    var render = function render() {
+      requestAnimationFrame(render);
+
+      var newTime = new Date().getTime() / 1000,
+          deltaTime = newTime - (time || newTime);
+      time = newTime;
+
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      var amount = particleRate * deltaTime;
+      for (var i = 0; i < amount; i++) {
+        var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
+        var dir = pos.clone().length(settings.particles.velocity * Math.random());
+        particles.add(canvas.width / 2 + pos.x, canvas.height / 2 - pos.y, dir.x, -dir.y);
+      }
+
+      particles.update(deltaTime);
+      particles.draw(context, image);
+    };
+
+    window.onresize = function() {
+      canvas.width = canvas.clientWidth;
+      canvas.height = canvas.clientHeight;
+    };
+
+    setTimeout(function() {
+      window.onresize();
+      render();
+    }, 10);
+  })(document.getElementById('pinkboard'));
+</script>
+
+</body>
+</html>
